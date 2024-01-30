@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/bin/SFMLTemplate", // Replace with your executable path
+            "group": "test",
+            "dependsOn": ["Build"]
+        },
+        {
+            "label": "Build for Distribution",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Release"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Package",
+            "type": "shell",
+            "command": "cpack",
+            "args": [
+                "--config",
+                "${workspaceFolder}/build/CPackConfig.cmake"
+            ],
+            "dependsOn": ["Build for Distribution"],
+            "group": "build"
+        }
+    ]
+}
